@@ -251,7 +251,7 @@ jobs:
             FILENAME=$(basename "$URL" | sed 's/%20/ /g' | sed 's/%2F/-/g' | sed 's/[?#].*//')
             FILENAME=$(echo "$FILENAME" | sed 's/[<>:"|?*]/_/g')
             echo "Downloading $URL -> $FILENAME"
-            download_with_retry "$URL" "$FILENAME" || echo "Failed to download: $FILENAME"
+            download_with_retry "$URL" "${FILENAME%.*}_$(date +%Y%m%d_%H%M%S).${FILENAME##*.}" || echo "Failed to download: $FILENAME"            
           done
 
           if [ "$MODE" = "zip" ]; then
